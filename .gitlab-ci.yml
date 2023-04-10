@@ -1,0 +1,10 @@
+variables:
+    TOKEN: $CI_JOB_TOKEN
+
+deploy:
+    image: bash:latest
+    before_script:
+        - apk update && apk add openssh-client
+    script:
+        - sed -i "s/TOKEN/${TOKEN}/g" deployscript.sh
+        - bash ssh-deploy.sh
